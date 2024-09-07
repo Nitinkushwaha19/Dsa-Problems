@@ -31,3 +31,42 @@ public class StockSpan {
         }
     }
 }
+
+
+
+
+// Leetcode :- Approach 
+class StockSpanner {
+
+    class Pair {
+        int price;
+        int index;
+
+        public Pair(int p, int i){
+            this.price = p;
+            this.index = i;
+        }
+    }
+
+    Stack<Pair> s;
+    int idx;
+
+    public StockSpanner() {
+        s = new Stack<>();
+        idx = -1;
+    }
+    
+    public int next(int price) {
+        idx++;
+        int ans = 0;
+
+        while(!s.isEmpty() && s.peek().price <= price){
+            s.pop();
+        }
+
+        ans = idx - ( s.isEmpty() ? -1 : s.peek().index );
+        s.push(new Pair(price,idx));
+
+        return ans;
+    }
+}
